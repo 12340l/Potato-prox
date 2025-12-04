@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Proxy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#111; color:white; }
+    #bar { background:#222; padding:10px; display:flex; }
+    input { flex:1; padding:8px; border-radius:5px; border:none; outline:none; }
+    button { margin-left:10px; padding:8px 15px; border:none; border-radius:5px; background:#ff8800; color:black; cursor:pointer; }
+    iframe { width:100%; height:calc(100vh - 50px); border:none; }
+  </style>
+</head>
+<body>
+  <div id="bar">
+    <input id="urlInput" placeholder="Enter URL (https://example.com)">
+    <button onclick="loadSite()">Go</button>
+  </div>
+  <iframe id="viewer"></iframe>
+
+  <script>
+    function loadSite() {
+      let url = document.getElementById("urlInput").value;
+      if (!url) return;
+      // Make sure URL starts with http/https
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      document.getElementById("viewer").src = "/proxy?url=" + encodeURIComponent(url);
+    }
+  </script>
+</body>
+</html>
